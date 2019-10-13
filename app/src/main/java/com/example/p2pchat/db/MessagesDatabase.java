@@ -1,4 +1,4 @@
-package com.example.wifidirectchat.db;
+package com.example.p2pchat.db;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
@@ -8,9 +8,9 @@ import android.arch.persistence.room.TypeConverters;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-import com.example.wifidirectchat.App;
-import com.example.wifidirectchat.converters.DateConverter;
-import com.example.wifidirectchat.model.MessageEntity;
+import com.example.p2pchat.App;
+import com.example.p2pchat.converters.DateConverter;
+import com.example.p2pchat.model.MessageEntity;
 
 
 @Database(entities = {MessageEntity.class}, version = 1, exportSchema = false)

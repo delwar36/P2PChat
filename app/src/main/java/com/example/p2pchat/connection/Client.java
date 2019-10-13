@@ -1,11 +1,11 @@
-package com.example.wifidirectchat.connection;
+package com.example.p2pchat.connection;
 
 import android.arch.lifecycle.MutableLiveData;
 
-import com.example.wifidirectchat.LocalDevice;
-import com.example.wifidirectchat.db.MessageRepository;
-import com.example.wifidirectchat.model.MessageEntity;
-import com.example.wifidirectchat.viewmodel.ChatPageViewModel;
+import com.example.p2pchat.LocalDevice;
+import com.example.p2pchat.db.MessageRepository;
+import com.example.p2pchat.model.MessageEntity;
+import com.example.p2pchat.viewmodel.ChatPageViewModel;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

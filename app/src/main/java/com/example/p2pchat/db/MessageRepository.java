@@ -1,10 +1,10 @@
-package com.example.wifidirectchat.db;
+package com.example.p2pchat.db;
 
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
-import com.example.wifidirectchat.model.ChatHistoryEntity;
-import com.example.wifidirectchat.model.MessageEntity;
+import com.example.p2pchat.model.ChatHistoryEntity;
+import com.example.p2pchat.model.MessageEntity;
 
 import java.util.List;
 

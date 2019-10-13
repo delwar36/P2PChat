@@ -1,4 +1,4 @@
-package com.example.wifidirectchat.converters;
+package com.example.p2pchat.converters;
 
 import android.arch.persistence.room.TypeConverter;
 

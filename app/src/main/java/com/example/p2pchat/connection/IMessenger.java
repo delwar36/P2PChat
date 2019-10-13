@@ -1,4 +1,4 @@
-package com.example.wifidirectchat.connection;
+package com.example.p2pchat.connection;
 
 public abstract class IMessenger extends Thread {
     public abstract void send(String text, boolean isMessage);

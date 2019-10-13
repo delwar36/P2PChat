@@ -1,4 +1,4 @@
-package com.example.wifidirectchat.viewmodel;
+package com.example.p2pchat.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -16,13 +16,13 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.wifidirectchat.WiFiDirectBroadcastReceiver;
-import com.example.wifidirectchat.connection.Client;
-import com.example.wifidirectchat.connection.IMessenger;
-import com.example.wifidirectchat.connection.Server;
-import com.example.wifidirectchat.connection.WIFIDirectConnections;
-import com.example.wifidirectchat.db.MessageRepository;
-import com.example.wifidirectchat.model.MessageEntity;
+import com.example.p2pchat.WiFiDirectBroadcastReceiver;
+import com.example.p2pchat.connection.Client;
+import com.example.p2pchat.connection.IMessenger;
+import com.example.p2pchat.connection.Server;
+import com.example.p2pchat.connection.WIFIDirectConnections;
+import com.example.p2pchat.db.MessageRepository;
+import com.example.p2pchat.model.MessageEntity;
 
 import java.net.InetAddress;
 import java.util.List;

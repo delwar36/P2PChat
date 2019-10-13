@@ -1,4 +1,4 @@
-package com.example.wifidirectchat.view;
+package com.example.p2pchat.view;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,14 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.wifidirectchat.R;
-import com.example.wifidirectchat.model.MessageEntity;
+import com.example.p2pchat.R;
+import com.example.p2pchat.model.MessageEntity;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.MessageViewHolder> {
     private static final int SENT = 0;

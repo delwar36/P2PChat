@@ -1,4 +1,4 @@
-package com.example.wifidirectchat;
+package com.example.p2pchat;
 
 public class Constants {
     public static final String ADDRESAT_NAME = "com.example.wididirectchat.ADDRESAT_NAME";

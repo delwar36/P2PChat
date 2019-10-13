@@ -1,4 +1,4 @@
-package com.example.wifidirectchat;
+package com.example.p2pchat;
 
 import android.app.Application;
 import android.content.Context;

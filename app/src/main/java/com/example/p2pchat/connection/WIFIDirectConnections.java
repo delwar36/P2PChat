@@ -1,4 +1,4 @@
-package com.example.wifidirectchat.connection;
+package com.example.p2pchat.connection;
 
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;

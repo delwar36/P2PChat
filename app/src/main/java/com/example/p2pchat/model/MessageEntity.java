@@ -1,4 +1,4 @@
-package com.example.wifidirectchat.model;
+package com.example.p2pchat.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

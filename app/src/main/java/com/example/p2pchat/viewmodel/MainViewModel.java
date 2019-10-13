@@ -1,4 +1,4 @@
-package com.example.wifidirectchat.viewmodel;
+package com.example.p2pchat.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -7,10 +7,10 @@ import android.arch.lifecycle.MutableLiveData;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.example.wifidirectchat.Constants;
-import com.example.wifidirectchat.db.MessageRepository;
-import com.example.wifidirectchat.model.ChatHistoryEntity;
-import com.example.wifidirectchat.view.ChatActivity;
+import com.example.p2pchat.Constants;
+import com.example.p2pchat.db.MessageRepository;
+import com.example.p2pchat.model.ChatHistoryEntity;
+import com.example.p2pchat.view.ChatActivity;
 
 import java.util.List;
 

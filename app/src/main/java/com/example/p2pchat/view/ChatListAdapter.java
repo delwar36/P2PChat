@@ -1,4 +1,4 @@
-package com.example.wifidirectchat.view;
+package com.example.p2pchat.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.wifidirectchat.Constants;
-import com.example.wifidirectchat.R;
-import com.example.wifidirectchat.model.ChatHistoryEntity;
+import com.example.p2pchat.Constants;
+import com.example.p2pchat.R;
+import com.example.p2pchat.model.ChatHistoryEntity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

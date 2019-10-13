@@ -1,4 +1,4 @@
-package com.example.wifidirectchat.view;
+package com.example.p2pchat.view;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -20,10 +20,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.wifidirectchat.Constants;
-import com.example.wifidirectchat.R;
-import com.example.wifidirectchat.model.MessageEntity;
-import com.example.wifidirectchat.viewmodel.ChatPageViewModel;
+import com.example.p2pchat.Constants;
+import com.example.p2pchat.R;
+import com.example.p2pchat.model.MessageEntity;
+import com.example.p2pchat.viewmodel.ChatPageViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

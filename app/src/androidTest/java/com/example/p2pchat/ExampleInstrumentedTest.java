@@ -1,4 +1,4 @@
-package com.example.wifidirectchat;
+package com.example.p2pchat;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2166F1</color>
+    <color name="colorPrimaryDark">#4151B3</color>
+    <color name="colorAccent">#2196F3</color>
+    <color name="chatHistoryItemColor">#F3EFEF</color>
+    <color name="sentMessageColor">#2196F3</color>
+    <color name="receivedMessageColor">#FFC107</color>
+
+</resources>

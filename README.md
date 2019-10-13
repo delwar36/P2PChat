@@ -1,5 +1,3 @@
-# WifiDirectChat
+# P2PChat
 
-დოკუმენტაცია იხილეთ კოდის კომენტარებში
-
-.apk ფაილი იხილეთ [აქ](https://github.com/bakurits/WifiDirectChat/blob/master/app-debug.apk)
+This is peer to peer network based project.

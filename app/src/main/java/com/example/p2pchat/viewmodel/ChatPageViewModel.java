@@ -178,7 +178,6 @@ public class ChatPageViewModel extends AndroidViewModel {
         messenger.send(text, true);
     }
 
-    //ჯგუფის მფლობელი შლის ჯგუფს. იხურება სოკეტი
     public void closeChat() {
         if (wifiP2pManager != null && channel != null) {
             wifiP2pManager.requestGroupInfo(channel, new WifiP2pManager.GroupInfoListener() {

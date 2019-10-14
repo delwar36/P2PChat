@@ -21,7 +21,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.p2pchat.R;
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_REQUEST_PERMISSION_CODE = 1;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
-    private Button clearHistoryButton;
     private TextView emptyPageMessage;
 
     private RecyclerView chatHistoryView;
@@ -68,11 +66,9 @@ public class MainActivity extends AppCompatActivity {
                     Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.historyPageTitle));
                     emptyPageMessage.setVisibility(View.VISIBLE);
                     chatHistoryView.setVisibility(View.GONE);
-                    clearHistoryButton.setVisibility(View.GONE);
                 } else {
                     emptyPageMessage.setVisibility(View.GONE);
                     chatHistoryView.setVisibility(View.VISIBLE);
-                    clearHistoryButton.setVisibility(View.VISIBLE);
                     getSupportActionBar().setTitle(getString(R.string.historyPageTitle) + "(" + chats.size() + ")");
                     Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.historyPageTitle) + "(" + chats.size() + ")");
                 }
@@ -113,13 +109,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpHistoryPage() {
-        clearHistoryButton = findViewById(R.id.clearHistory);
-        clearHistoryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                model.clearHistory();
-            }
-        });
         chatHistoryView = findViewById(R.id.chatHistory);
         chatHistoryView.setLayoutManager(new LinearLayoutManager(this));
         historyAdapter = new ChatListAdapter();

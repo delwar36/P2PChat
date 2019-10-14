@@ -24,19 +24,21 @@ import com.example.p2pchat.Constants;
 import com.example.p2pchat.R;
 import com.example.p2pchat.model.MessageEntity;
 import com.example.p2pchat.viewmodel.ChatPageViewModel;
+import com.example.p2pchat.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity {
-    private View chatBox;
+    private View chatBox, checkOn;
     private EditText newMessage;
     private MessageListAdapter adapter;
     private String addressee;
     private String startDate;
     private boolean isOffline;
     private ChatPageViewModel model;
+    private MainViewModel model2;
     private ConstraintLayout loadingScreen;
     private ConstraintLayout messengerLayout;
 
@@ -54,7 +56,8 @@ public class ChatActivity extends AppCompatActivity {
         final AlertDialog[] dialogs = {null};
 
         if (isOffline) {
-            chatBox.setVisibility(View.GONE);
+            chatBox.setVisibility(View.INVISIBLE);
+            checkOn.setVisibility(View.VISIBLE);
             model.setAddressee(addressee);
             model.getMessageList().observe(this, new Observer<List<MessageEntity>>() {
                 @Override
@@ -63,6 +66,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
         } else {
+            chatBox.setVisibility(View.VISIBLE);
             loadingScreen.setVisibility(View.VISIBLE);
             messengerLayout.setVisibility(View.GONE);
             Objects.requireNonNull(getSupportActionBar()).hide();
@@ -142,6 +146,7 @@ public class ChatActivity extends AppCompatActivity {
         messengerLayout = findViewById(R.id.messengerLayout);
         chatBox = findViewById(R.id.layout_chatbox);
         loadingScreen = findViewById(R.id.loading_screen);
+        checkOn = findViewById(R.id.checkOnline);
         loadingScreen.setVisibility(View.GONE);
         findViewById(R.id.stopSearch).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,7 +195,7 @@ public class ChatActivity extends AppCompatActivity {
                 finish();
             }
         });
-        toolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_left_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
     }
 
     @Override
@@ -207,8 +212,9 @@ public class ChatActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.delete_button) {
-            model.deleteChat();
-            finish();
+
+            model2 = ViewModelProviders.of(this).get(MainViewModel.class);
+            model2.startSearch();
             return true;
         }
         return super.onOptionsItemSelected(item);

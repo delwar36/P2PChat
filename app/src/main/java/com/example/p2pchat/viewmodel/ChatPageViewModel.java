@@ -76,7 +76,8 @@ public class ChatPageViewModel extends AndroidViewModel {
                     client.start();
                     messenger = client;
                 }
-                Toast.makeText(application, "The connection to the device is firmly established", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(application, "The connection to "+ address.getHostAddress() + " is firmly established", Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -117,6 +118,7 @@ public class ChatPageViewModel extends AndroidViewModel {
     public String getAddressee() {
         return addressee;
     }
+
 
     public MutableLiveData<Boolean> chatIsReady() {
         return chatIsReady;

@@ -57,7 +57,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:textAllCaps="false"
             android:text="@string/cancelButtonTitle"
+            android:background="@drawable/received_message_background"
+            android:paddingLeft="10dp"
+            android:textSize="20sp"
+            android:paddingRight="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progressBar" />
@@ -98,9 +103,9 @@
             android:id="@+id/layout_chatbox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="#ffffff"
             android:minHeight="48dp"
             android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="@id/messengerLayout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -109,11 +114,11 @@
                 android:id="@+id/edittext_chatbox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="@drawable/chatbox_backgrouond"
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_weight="1"
-                android:background="@android:color/transparent"
                 android:hint="@string/enter_message"
                 android:maxLines="6" />
 
@@ -127,7 +132,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 

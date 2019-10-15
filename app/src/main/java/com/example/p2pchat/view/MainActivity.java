@@ -19,8 +19,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.p2pchat.R;
@@ -33,9 +35,8 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     private static final int MY_REQUEST_PERMISSION_CODE = 1;
-    private DrawerLayout drawer;
-    private ActionBarDrawerToggle toggle;
     private TextView emptyPageMessage;
+    private Button reConnect;
 
     private RecyclerView chatHistoryView;
     private ChatListAdapter historyAdapter;
@@ -47,15 +48,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpGPS();
-        setUpDrawer();
         setUpHistoryPage();
         setUpViewModel();
+        reConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                model.startSearch();
+            }
+        });
 
     }
 
     private void setUpViewModel() {
         model = ViewModelProviders.of(this).get(MainViewModel.class);
 
+        model.startSearch();
         model.getHistory().observe(this, new Observer<List<ChatHistoryEntity>>() {
             @Override
             public void onChanged(@Nullable List<ChatHistoryEntity> chats) {
@@ -65,8 +72,10 @@ public class MainActivity extends AppCompatActivity {
                 if (chats.size() == 0) {
                     Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.historyPageTitle));
                     emptyPageMessage.setVisibility(View.VISIBLE);
+                    reConnect.setVisibility(View.VISIBLE);
                     chatHistoryView.setVisibility(View.GONE);
                 } else {
+                    reConnect.setVisibility(View.GONE);
                     emptyPageMessage.setVisibility(View.GONE);
                     chatHistoryView.setVisibility(View.VISIBLE);
                     getSupportActionBar().setTitle(getString(R.string.historyPageTitle) + "(" + chats.size() + ")");
@@ -114,39 +123,9 @@ public class MainActivity extends AppCompatActivity {
         historyAdapter = new ChatListAdapter();
         chatHistoryView.setAdapter(historyAdapter);
         emptyPageMessage = findViewById(R.id.chat_list_empty_message);
+        reConnect = findViewById(R.id.reConnect);
     }
 
 
-    private void setUpDrawer() {
-        drawer = findViewById(R.id.drawer_layout);
-        drawer.setVisibility(View.VISIBLE);
-        toggle = new ActionBarDrawerToggle(this, drawer, R.string.Open, R.string.Close);
-        toggle.setDrawerIndicatorEnabled(true);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.historyPageTitle));
-
-
-        NavigationView navView = findViewById(R.id.nav_view);
-        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                int id = menuItem.getItemId();
-                if (id == R.id.menu_chat_button) {
-                    //Objects.requireNonNull(getSupportActionBar()).hide();
-                    //drawer.setVisibility(View.GONE);
-                    model.startSearch();
-                }
-                drawer.closeDrawers();
-                return false;
-            }
-        });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return toggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
-    }
 }
 

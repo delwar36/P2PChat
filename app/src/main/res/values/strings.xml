@@ -4,10 +4,10 @@
     <string name="Close"> NavBar</string>
     <string name="historyButtonTitle">Conversations</string>
     <string name="chatButtonTitle">Chat</string>
-    <string name="cancelButtonTitle">Stop Searching</string>
+    <string name="cancelButtonTitle">Stop</string>
     <string name="clearHistoryButtonTitle">Clear history</string>
     <string name="emptyHistoryMessage">No conversation found</string>
-    <string name="loading_connection">Searching active users……</string>
+    <string name="loading_connection">Searching active users…</string>
     <string name="title_activity_chat">Chat activity</string>
     <string name="historyPageTitle">Conversations</string>
     <string name="enter_message">Enter the text</string>
@@ -15,4 +15,5 @@
     <string name="name">Name</string>
     <string name="start_date">Start Date</string>
     <string name="_0">0</string>
+    <string name="delete">Delete</string>
 </resources>

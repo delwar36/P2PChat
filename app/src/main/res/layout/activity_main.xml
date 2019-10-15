@@ -8,21 +8,15 @@
     android:background="#1E1E30"
     >
 
-
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible">
-
-        <android.support.constraint.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:ignore="UselessParent">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/chatHistory"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="8dp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -31,34 +25,33 @@
 
             <TextView
                 android:id="@+id/chat_list_empty_message"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
                 android:gravity="center"
                 android:text="@string/emptyHistoryMessage"
                 android:textSize="24sp"
-                android:visibility="gone"
                 android:textColor="@color/primaryTextColor"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                />
+            <Button
+                android:id="@+id/reConnect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:background="@drawable/sent_message_background"
+                android:paddingLeft="10dp"
+                android:visibility="gone"
+                android:paddingRight="10dp"
+                android:layout_marginTop="20dp"
+                android:textAllCaps="false"
+                android:layout_below="@+id/chat_list_empty_message"
+                android:layout_centerHorizontal="true"
+                android:textColor="@android:color/white"
+                android:text="@string/connect"/>
 
 
 
-        </android.support.constraint.ConstraintLayout>
+        </RelativeLayout>
 
-        <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:menu="@menu/navigation_menu"
-            app:itemIconTint="@color/colorPrimaryDark">
-
-        </android.support.design.widget.NavigationView>
-    </android.support.v4.widget.DrawerLayout>
 </FrameLayout>

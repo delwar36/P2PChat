@@ -7,5 +7,6 @@
     <color name="sentMessageColor">#2196F3</color>
     <color name="receivedMessageColor">#FFC107</color>
     <color name="primaryTextColor">#A7A7A7</color>
+    <color name="chboxBackground">#A7A7A7</color>
 
 </resources>

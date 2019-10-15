@@ -38,7 +38,6 @@ public class ChatActivity extends AppCompatActivity {
     private String startDate;
     private boolean isOffline;
     private ChatPageViewModel model;
-    private MainViewModel model2;
     private ConstraintLayout loadingScreen;
     private ConstraintLayout messengerLayout;
 
@@ -133,7 +132,7 @@ public class ChatActivity extends AppCompatActivity {
                 @Override
                 public void onChanged(@Nullable Boolean aBoolean) {
                     if (aBoolean == null || aBoolean) {
-                        Toast.makeText(ChatActivity.this, "One of the interviewees left the chat", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChatActivity.this, addressee + " left the chat", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }
@@ -166,8 +165,11 @@ public class ChatActivity extends AppCompatActivity {
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(newMessage.getText().toString().length() == 0)
+                if(newMessage.getText().toString().trim().length() == 0) {
+                    newMessage.setText("");
                     return;
+                }
+
                 model.sendMessage(newMessage.getText().toString());
                 newMessage.setText("");
             }
@@ -200,8 +202,6 @@ public class ChatActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!isOffline)
-            return false;
         getMenuInflater().inflate(R.menu.menu_chat, menu);
         return true;
     }
@@ -211,10 +211,16 @@ public class ChatActivity extends AppCompatActivity {
 
         int id = item.getItemId();
 
-        if (id == R.id.delete_button) {
+        if (id == R.id.connect_button) {
 
-            model2 = ViewModelProviders.of(this).get(MainViewModel.class);
+            MainViewModel model2 = ViewModelProviders.of(this).get(MainViewModel.class);
             model2.startSearch();
+            return true;
+        }
+        if (id == R.id.delete_button) {
+            model.deleteChat();
+            model.closeChat();
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -230,5 +236,15 @@ public class ChatActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         model.unregisterBroadcast();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        if (!isOffline) {
+            model.closeChat();
+            finish();
+        }
     }
 }

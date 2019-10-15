@@ -3,9 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/delete_button"
+        android:id="@+id/connect_button"
         android:icon="@drawable/connect"
         android:title="@string/connect"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/delete_button"
+        android:icon="@drawable/ic_delete_24dp"
+        android:title="@string/delete"
         app:showAsAction="ifRoom" />
 
 </menu>

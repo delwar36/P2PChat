@@ -5,8 +5,9 @@
     <color name="colorAccent">#2196F3</color>
     <color name="chatHistoryItemColor">#D53F4452</color>
     <color name="sentMessageColor">#2196F3</color>
-    <color name="receivedMessageColor">#D3D1CB</color>
+    <color name="receivedMessageColor">#E8353534</color>
     <color name="primaryTextColor">#A7A7A7</color>
-    <color name="chboxBackground">#B7A7A7A7</color>
+    <color name="chboxBackground">#B7FFFFFF</color>
+    <color name="stopBackground">#01FF3B</color>
 
 </resources>

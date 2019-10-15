@@ -1,46 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_margin="2dp"
     android:background="@drawable/chat_history_item_background">
 
+    <ImageView
+        android:id="@+id/avatar2"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/avatar"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/circle_background"
+        android:layout_centerVertical="true"/>
+
+
+
     <TextView
         android:id="@+id/chatName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="15dp"
         android:textColor="@android:color/white"
         android:text="@string/name"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="22sp"
+        android:layout_toEndOf="@+id/avatar2"/>
 
     <TextView
         android:id="@+id/startDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/primaryTextColor"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/start_date"
-        app:layout_constraintStart_toStartOf="@+id/chatName"
-        app:layout_constraintTop_toBottomOf="@+id/chatName" />
+        android:layout_toEndOf="@+id/avatar2"
+        android:layout_below="@+id/chatName"/>
 
     <TextView
         android:id="@+id/messageCount"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginEnd="15dp"
-        android:background="@drawable/circle_background"
         android:gravity="center"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@android:color/white"
         android:text="@string/_0"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="20sp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"/>
 
 
-</android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

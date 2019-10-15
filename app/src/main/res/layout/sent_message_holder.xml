@@ -24,7 +24,11 @@
             android:layout_height="wrap_content"
             android:background="@drawable/sent_message_background"
             android:gravity="end"
-            android:padding="10dp"
+            android:textSize="18sp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:text="TextView"
             android:textColor="#FFFFFF" />
     </RelativeLayout>

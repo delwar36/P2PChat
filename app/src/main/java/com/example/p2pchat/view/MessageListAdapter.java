@@ -1,5 +1,6 @@
 package com.example.p2pchat.view;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import com.example.p2pchat.R;
 import com.example.p2pchat.model.MessageEntity;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.MessageViewHolder> {
@@ -44,7 +46,9 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder messageViewHolder, int i) {
         MessageEntity m = messageEntities.get(i);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("EEE, MMM dd  |  hh:mm a");
+
 
         messageViewHolder.text.setText(m.getMessage());
         messageViewHolder.date.setText(format.format(m.getDate()));

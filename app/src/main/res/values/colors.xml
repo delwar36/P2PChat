@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#1F305F</color>
-    <color name="colorPrimaryDark">#C61F305F</color>
+    <color name="colorPrimaryDark">#1F305F</color>
     <color name="colorAccent">#2196F3</color>
-    <color name="chatHistoryItemColor">#E13F4452</color>
+    <color name="chatHistoryItemColor">#D53F4452</color>
     <color name="sentMessageColor">#2196F3</color>
-    <color name="receivedMessageColor">#FFC107</color>
+    <color name="receivedMessageColor">#D3D1CB</color>
     <color name="primaryTextColor">#A7A7A7</color>
-    <color name="chboxBackground">#A7A7A7</color>
+    <color name="chboxBackground">#B7A7A7A7</color>
 
 </resources>

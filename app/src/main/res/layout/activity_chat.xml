@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1E1E30"
+    android:background="@drawable/bg2"
     tools:context=".view.ChatActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -54,15 +54,13 @@
 
         <Button
             android:id="@+id/stopSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:textAllCaps="false"
             android:text="@string/cancelButtonTitle"
             android:background="@drawable/received_message_background"
-            android:paddingLeft="10dp"
             android:textSize="20sp"
-            android:paddingRight="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progressBar" />

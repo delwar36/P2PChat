@@ -170,7 +170,7 @@ public class ChatActivity extends AppCompatActivity {
                     return;
                 }
 
-                model.sendMessage(newMessage.getText().toString());
+                model.sendMessage(newMessage.getText().toString().replaceAll("\\s+"," "));
                 newMessage.setText("");
             }
         });

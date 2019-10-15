@@ -28,8 +28,9 @@
             android:name="com.example.p2pchat.view.ChatActivity"
             android:label="@string/title_activity_chat"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.example.p2pchat.view.MainActivity">
+        <activity android:name="com.example.p2pchat.view.MainActivity"/>
 
+        <activity android:name="com.example.p2pchat.view.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

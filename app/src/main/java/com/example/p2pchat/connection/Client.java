@@ -1,6 +1,8 @@
 package com.example.p2pchat.connection;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.content.ContentResolver;
+import android.os.Environment;
 
 import com.example.p2pchat.LocalDevice;
 import com.example.p2pchat.db.MessageRepository;
@@ -93,28 +95,6 @@ public class Client extends IMessenger {
 
     }
 
-    @Override
-    public void fileSend(final File text, final boolean isFile) {
-        new Thread() {
-            @Override
-            public void run() {
-                if (socket == null) return;
-                try {
-                    ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-                    outputStream.writeObject(text);
-                    outputStream.flush();
-                    if (isFile) {
-//                        Date c = Calendar.getInstance().getTime();
-//                        MessageEntity message = new MessageEntity(text, c, peerName, true);
-//                        MessageRepository.getInstance().insert(message);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-
-    }
 
     @Override
     public void DestroySocket() {

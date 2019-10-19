@@ -3,8 +3,12 @@ package com.example.p2pchat.view;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
@@ -18,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.p2pchat.Constants;
@@ -26,6 +31,9 @@ import com.example.p2pchat.model.MessageEntity;
 import com.example.p2pchat.viewmodel.ChatPageViewModel;
 import com.example.p2pchat.viewmodel.MainViewModel;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -40,6 +48,7 @@ public class ChatActivity extends AppCompatActivity {
     private ChatPageViewModel model;
     private ConstraintLayout loadingScreen;
     private ConstraintLayout messengerLayout;
+    public static final int PICKFILE_RESULT_CODE = 1;
 
 
     @Override
@@ -162,6 +171,19 @@ public class ChatActivity extends AppCompatActivity {
         startDate = getIntent().getStringExtra(Constants.DATE);
         newMessage = findViewById(R.id.edittext_chatbox);
         ImageButton sendMessage = findViewById(R.id.button_chatbox_send);
+        ImageView fileChooser = findViewById(R.id.file_chooser);
+
+        fileChooser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showChooser();
+
+            }
+
+        });
+
+
+
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,6 +202,37 @@ public class ChatActivity extends AppCompatActivity {
         adapter = new MessageListAdapter(new ArrayList<MessageEntity>(), this);
         messages.setAdapter(adapter);
 
+    }
+
+    private void showChooser() {
+        Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+        chooseFile.setType("*/*");
+        try{
+            startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
+        } catch (Exception e){
+            Toast.makeText(ChatActivity.this, "Please install a file manager", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (requestCode == PICKFILE_RESULT_CODE) {
+            if(resultCode == RESULT_OK){
+                if(data !=null){
+                    final Uri uri = data.getData();
+                    try{
+                        assert uri != null;
+
+                        newMessage.setText(uri.getPath());
+
+                    }catch (Exception e){
+                        Toast.makeText(this, "File selection failed!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 

@@ -181,9 +181,7 @@ public class ChatPageViewModel extends AndroidViewModel {
         messenger.send(text, true);
     }
 
-    public void sendFile(File file) {
-        messenger.fileSend(file, true);
-    }
+
 
     public void closeChat() {
         if (wifiP2pManager != null && channel != null) {

@@ -95,29 +95,6 @@ public class Server extends IMessenger {
         }.start();
 
     }
-    public void fileSend(final File file, final boolean isFile) {
-
-        new Thread() {
-            @Override
-            public void run() {
-                if (socket == null) return;
-                try {
-                    ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-                    outputStream.writeObject(file);
-                    outputStream.flush();
-                    if (isFile) {
-//
-//                        Date c = Calendar.getInstance().getTime();
-//                        MessageEntity message = new MessageEntity(file, c, peerName, true);
-//                        MessageRepository.getInstance().insert(message);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-
-    }
 
     @Override
     public void DestroySocket() {

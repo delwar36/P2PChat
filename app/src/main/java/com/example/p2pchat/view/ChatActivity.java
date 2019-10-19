@@ -187,8 +187,11 @@ public class ChatActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(addressee);
-        if(isOffline)
-            getSupportActionBar().setSubtitle(startDate);
+        if(isOffline) {
+            getSupportActionBar().setSubtitle("Last seen "+startDate);
+        } else {
+            getSupportActionBar().setSubtitle("•Active now");
+        }
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -198,6 +201,7 @@ public class ChatActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
     }
 

@@ -38,7 +38,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatHo
         listener = new OnChatClickListener() {
             @Override
             public void onChatClick(ChatHistoryEntity chat, Context context) {
-                SimpleDateFormat format = new SimpleDateFormat("EEE, MMM dd  |  hh:mm a");
+                SimpleDateFormat format = new SimpleDateFormat("MMM dd  |  hh:mm a");
                 Intent intent = new Intent(context, ChatActivity.class);
                 intent.putExtra(Constants.ADDRESAT_NAME, chat.getName());
                 intent.putExtra(Constants.IS_OFFLINE, true);
@@ -59,9 +59,9 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatHo
     @Override
     public void onBindViewHolder(@NonNull ChatHolder chatHolder, int i) {
         ChatHistoryEntity chat = chats.get(i);
-        SimpleDateFormat format = new SimpleDateFormat("EEE, MMM dd  |  hh:mm a");
+        SimpleDateFormat format = new SimpleDateFormat("MMM dd | hh:mm a");
         chatHolder.messageCount.setText(String.valueOf(chat.getMessageCount()));
-        chatHolder.startDate.setText(format.format(chat.getStartDate()));
+        chatHolder.startDate.setText("Last seen "+format.format(chat.getStartDate()));
         chatHolder.name.setText(chat.getName());
 
 
@@ -94,7 +94,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatHo
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    final Snackbar snackbar = Snackbar.make(v,"Delete message?", Snackbar.LENGTH_INDEFINITE)
+                    final Snackbar snackbar = Snackbar.make(v,"Delete conversation?", Snackbar.LENGTH_LONG)
                             .setAction("DELETE", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {

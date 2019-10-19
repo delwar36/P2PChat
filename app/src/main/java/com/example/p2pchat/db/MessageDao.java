@@ -35,8 +35,8 @@ public interface MessageDao {
     void deleteAll();
 
 
-    @Query("SELECT messages.id AS id, messages.addressee AS name, count(messages.id) AS messageCount , start_date_table.startDate AS date FROM messages INNER JOIN" +
-            "(SELECT  messages.addressee AS addressee, MIN(messages.date) AS startDate , MAX(messages.date) AS lastDate FROM messages GROUP BY messages.addressee) AS start_date_table " +
+    @Query("SELECT messages.id AS id, messages.addressee AS name, count(messages.id) AS messageCount , start_date_table.startDate AS date, start_date_table.lastDate AS date FROM messages INNER JOIN" +
+            "(SELECT  messages.addressee AS addressee, MAX(messages.date) AS startDate , MAX(messages.date) AS lastDate FROM messages GROUP BY messages.addressee) AS start_date_table " +
             "ON messages.addressee = start_date_table.addressee " +
             "GROUP BY messages.addressee ORDER BY start_date_table.lastDate DESC")
     LiveData<List<ChatHistoryEntity>> getAllChats();

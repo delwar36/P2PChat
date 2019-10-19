@@ -72,7 +72,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
         messageViewHolder.text.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                final Snackbar snackbar = Snackbar.make(v,"Delete message?", Snackbar.LENGTH_INDEFINITE)
+                final Snackbar snackbar = Snackbar.make(v,"Delete message?", Snackbar.LENGTH_LONG)
                         .setAction("DELETE", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

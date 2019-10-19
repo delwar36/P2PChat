@@ -24,6 +24,7 @@ import com.example.p2pchat.connection.WIFIDirectConnections;
 import com.example.p2pchat.db.MessageRepository;
 import com.example.p2pchat.model.MessageEntity;
 
+import java.io.File;
 import java.net.InetAddress;
 import java.util.List;
 
@@ -180,6 +181,10 @@ public class ChatPageViewModel extends AndroidViewModel {
         messenger.send(text, true);
     }
 
+    public void sendFile(File file) {
+        messenger.fileSend(file, true);
+    }
+
     public void closeChat() {
         if (wifiP2pManager != null && channel != null) {
             wifiP2pManager.requestGroupInfo(channel, new WifiP2pManager.GroupInfoListener() {
@@ -212,8 +217,9 @@ public class ChatPageViewModel extends AndroidViewModel {
             chatClosed.postValue(true);
     }
 
-    public void deleteChat() {
-        repository.deleteAllFrom(addressee);
-    }
 
+
+    public void deleteMessage(MessageEntity messageEntity) {
+        repository.delete(messageEntity);
+    }
 }

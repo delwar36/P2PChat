@@ -31,6 +31,7 @@
             android:paddingBottom="5dp"
             android:text="TextView"
             android:textColor="#FFFFFF" />
+
     </RelativeLayout>
 
     <TextView

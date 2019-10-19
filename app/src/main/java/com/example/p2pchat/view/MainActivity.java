@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
     private void setUpHistoryPage() {
         chatHistoryView = findViewById(R.id.chatHistory);
         chatHistoryView.setLayoutManager(new LinearLayoutManager(this));
-        historyAdapter = new ChatListAdapter();
+        historyAdapter = new ChatListAdapter(this);
         chatHistoryView.setAdapter(historyAdapter);
         emptyPageMessage = findViewById(R.id.chat_list_empty_message);
         reConnect = findViewById(R.id.reConnect);

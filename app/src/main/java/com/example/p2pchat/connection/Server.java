@@ -7,6 +7,7 @@ import com.example.p2pchat.db.MessageRepository;
 import com.example.p2pchat.model.MessageEntity;
 import com.example.p2pchat.viewmodel.ChatPageViewModel;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -86,6 +87,29 @@ public class Server extends IMessenger {
                         Date c = Calendar.getInstance().getTime();
                         MessageEntity message = new MessageEntity(text, c, peerName, true);
                         MessageRepository.getInstance().insert(message);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+    }
+    public void fileSend(final File file, final boolean isFile) {
+
+        new Thread() {
+            @Override
+            public void run() {
+                if (socket == null) return;
+                try {
+                    ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+                    outputStream.writeObject(file);
+                    outputStream.flush();
+                    if (isFile) {
+//
+//                        Date c = Calendar.getInstance().getTime();
+//                        MessageEntity message = new MessageEntity(file, c, peerName, true);
+//                        MessageRepository.getInstance().insert(message);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

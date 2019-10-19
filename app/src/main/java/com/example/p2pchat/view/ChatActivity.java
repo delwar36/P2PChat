@@ -177,8 +177,9 @@ public class ChatActivity extends AppCompatActivity {
 
         RecyclerView messages = findViewById(R.id.reyclerview_message_list);
         messages.setLayoutManager(new LinearLayoutManager(this, 1, true));
-        adapter = new MessageListAdapter(new ArrayList<MessageEntity>());
+        adapter = new MessageListAdapter(new ArrayList<MessageEntity>(), this);
         messages.setAdapter(adapter);
+
     }
 
 
@@ -215,12 +216,6 @@ public class ChatActivity extends AppCompatActivity {
 
             MainViewModel model2 = ViewModelProviders.of(this).get(MainViewModel.class);
             model2.startSearch();
-            return true;
-        }
-        if (id == R.id.delete_button) {
-            model.deleteChat();
-            model.closeChat();
-            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -38,6 +38,10 @@ public class MainViewModel extends AndroidViewModel {
         return history;
     }
 
+    public void deleteChat(String addresse) {
+        repository.deleteAllFrom(addresse);
+    }
+
     public void clearHistory() {
         repository.deleteAll();
     }

@@ -1,8 +1,12 @@
 package com.example.p2pchat.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +16,7 @@ import android.widget.TextView;
 import com.example.p2pchat.Constants;
 import com.example.p2pchat.R;
 import com.example.p2pchat.model.ChatHistoryEntity;
+import com.example.p2pchat.viewmodel.MainViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,9 +27,13 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatHo
     private List<ChatHistoryEntity> chats;
     private OnChatClickListener listener;
 
+    private MainViewModel model;
+    private Context context;
 
-    ChatListAdapter() {
+
+    ChatListAdapter(Context context) {
         super();
+        this.context = context;
         chats = new ArrayList<>();
         listener = new OnChatClickListener() {
             @Override
@@ -43,6 +52,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatHo
     @Override
     public ChatHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.chat_history_item_holder, viewGroup, false);
+        model = ViewModelProviders.of((FragmentActivity) context).get(MainViewModel.class);
         return new ChatHolder(view, listener);
     }
 
@@ -53,6 +63,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatHo
         chatHolder.messageCount.setText(String.valueOf(chat.getMessageCount()));
         chatHolder.startDate.setText(format.format(chat.getStartDate()));
         chatHolder.name.setText(chat.getName());
+
+
     }
 
 
@@ -79,6 +91,22 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatHo
             this.messageCount = itemView.findViewById(R.id.messageCount);
             this.listener = listener;
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    final Snackbar snackbar = Snackbar.make(v,"Delete message?", Snackbar.LENGTH_INDEFINITE)
+                            .setAction("DELETE", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    model.deleteChat(name.getText().toString());
+                                }
+                            });
+                    snackbar.setActionTextColor(Color.RED);
+                    snackbar.show();
+
+                    return true;
+                }
+            });
         }
 
         @Override

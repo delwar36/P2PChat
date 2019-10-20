@@ -42,7 +42,4 @@ public class MainViewModel extends AndroidViewModel {
         repository.deleteAllFrom(addresse);
     }
 
-    public void clearHistory() {
-        repository.deleteAll();
-    }
 }

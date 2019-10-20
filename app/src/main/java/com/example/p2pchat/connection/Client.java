@@ -1,15 +1,12 @@
 package com.example.p2pchat.connection;
 
 import android.arch.lifecycle.MutableLiveData;
-import android.content.ContentResolver;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.p2pchat.LocalDevice;
 import com.example.p2pchat.db.MessageRepository;
 import com.example.p2pchat.model.MessageEntity;
-import com.example.p2pchat.view.ChatActivity;
 import com.example.p2pchat.viewmodel.ChatPageViewModel;
 
 import java.io.File;
@@ -83,8 +80,8 @@ public class Client extends IMessenger {
     }
 
     private void writeToFile(String shared, String messageText) {
-        Long time= System.currentTimeMillis();
-        String timeMill = time.toString();
+        long time= System.currentTimeMillis();
+        String timeMill = Long.toString(time);
         File defaultDir = Environment.getExternalStorageDirectory();
         File file = new File(defaultDir, shared+timeMill+".txt");
         FileOutputStream stream;

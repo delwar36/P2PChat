@@ -24,7 +24,6 @@ import com.example.p2pchat.connection.WIFIDirectConnections;
 import com.example.p2pchat.db.MessageRepository;
 import com.example.p2pchat.model.MessageEntity;
 
-import java.io.File;
 import java.net.InetAddress;
 import java.util.List;
 

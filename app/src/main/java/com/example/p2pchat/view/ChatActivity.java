@@ -1,16 +1,22 @@
 package com.example.p2pchat.view;
 
+import android.Manifest;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.net.wifi.p2p.WifiP2pDevice;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,9 +40,14 @@ import com.example.p2pchat.viewmodel.MainViewModel;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class ChatActivity extends AppCompatActivity {
     private View chatBox, checkOn;
@@ -48,8 +59,14 @@ public class ChatActivity extends AppCompatActivity {
     private ChatPageViewModel model;
     private ConstraintLayout loadingScreen;
     private ConstraintLayout messengerLayout;
+    private CoordinatorLayout backgroundLayout;
     public static final int PICKFILE_RESULT_CODE = 1;
 
+    public static final int REQUEST_CODE_SPEECH_INPUT = 1000;
+    int myDefaultColor;
+
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +74,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         initChatPage();
         setupToolbar();
+        varifyStoragePermission();
 
 
         final AlertDialog.Builder adb = new AlertDialog.Builder(ChatActivity.this);
@@ -150,7 +168,20 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
+    private void varifyStoragePermission() {
+
+        // Check if we have write permission
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                requestPermissions(PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
+            }
+        }
+    }
+
     private void initChatPage() {
+        backgroundLayout = findViewById(R.id.change_bg_layout);
+        myDefaultColor = ContextCompat.getColor(ChatActivity.this, R.color.bgDefaultColor);
+
         messengerLayout = findViewById(R.id.messengerLayout);
         chatBox = findViewById(R.id.layout_chatbox);
         loadingScreen = findViewById(R.id.loading_screen);
@@ -172,6 +203,27 @@ public class ChatActivity extends AppCompatActivity {
         newMessage = findViewById(R.id.edittext_chatbox);
         ImageButton sendMessage = findViewById(R.id.button_chatbox_send);
         ImageView fileChooser = findViewById(R.id.file_chooser);
+        ImageView voiceText = findViewById(R.id.voice);
+
+        voiceText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speak();
+            }
+
+            private void speak() {
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hi, speak something");
+
+                try {
+                    startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
+                } catch (Exception e) {
+                    Toast.makeText(ChatActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         fileChooser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,16 +235,15 @@ public class ChatActivity extends AppCompatActivity {
         });
 
 
-
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(newMessage.getText().toString().trim().length() == 0) {
+                if (newMessage.getText().toString().trim().length() == 0) {
                     newMessage.setText("");
                     return;
                 }
 
-                model.sendMessage(newMessage.getText().toString().replaceAll("\\s+"," "));
+                model.sendMessage(newMessage.getText().toString().replaceAll("\\s+", " "), true);
                 newMessage.setText("");
             }
         });
@@ -207,9 +258,9 @@ public class ChatActivity extends AppCompatActivity {
     private void showChooser() {
         Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
         chooseFile.setType("*/*");
-        try{
+        try {
             startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
-        } catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(ChatActivity.this, "Please install a file manager", Toast.LENGTH_SHORT).show();
         }
     }
@@ -218,21 +269,59 @@ public class ChatActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         if (requestCode == PICKFILE_RESULT_CODE) {
-            if(resultCode == RESULT_OK){
-                if(data !=null){
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
                     final Uri uri = data.getData();
-                    try{
+                    try {
                         assert uri != null;
 
-                        newMessage.setText(uri.getPath());
+                        String textFile = "~\n" +uriToString(uri);
+                        model.sendMessage(textFile, false);
+                        Toast.makeText(this, "File sent successfully!", Toast.LENGTH_SHORT).show();
 
-                    }catch (Exception e){
+
+                    } catch (Exception e) {
                         Toast.makeText(this, "File selection failed!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         }
+
+        if (requestCode == REQUEST_CODE_SPEECH_INPUT) {
+            if (resultCode == RESULT_OK && data != null) {
+                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                model.sendMessage(result.get(0), true);
+
+            }
+        }
+
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private String uriToString(Uri uri) {
+
+        BufferedReader reader = null;
+        StringBuilder builder = new StringBuilder();
+        try {
+            reader = new BufferedReader(new InputStreamReader(getContentResolver().openInputStream(uri)));
+            String line = "";
+
+            while ((line = reader.readLine()) != null) {
+                builder.append("\n" + line);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return builder.toString();
     }
 
 
@@ -240,8 +329,8 @@ public class ChatActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(addressee);
-        if(isOffline) {
-            getSupportActionBar().setSubtitle("Last seen "+startDate);
+        if (isOffline) {
+            getSupportActionBar().setSubtitle("Last seen " + startDate);
         } else {
             getSupportActionBar().setSubtitle("•Active now");
         }
@@ -275,7 +364,32 @@ public class ChatActivity extends AppCompatActivity {
             model2.startSearch();
             return true;
         }
+
+        if (id == R.id.color_button) {
+
+            openColorPicker();
+
+
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openColorPicker() {
+        AmbilWarnaDialog ambilWarnaDialog = new AmbilWarnaDialog(this, myDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+
+            }
+
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                myDefaultColor = color;
+                backgroundLayout.setBackgroundColor(myDefaultColor);
+            }
+        });
+        ambilWarnaDialog.show();
     }
 
     @Override

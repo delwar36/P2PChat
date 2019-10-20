@@ -8,4 +8,10 @@
         android:title="@string/connect"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/color_button"
+        android:icon="@drawable/set_color"
+        android:title="@string/set_background"
+        app:showAsAction="ifRoom" />
+
 </menu>

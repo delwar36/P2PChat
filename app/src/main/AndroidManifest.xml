@@ -15,6 +15,9 @@
         android:name="android.permission.INTERNET"
         android:required="true" />
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name="com.example.p2pchat.App"
         android:allowBackup="false"

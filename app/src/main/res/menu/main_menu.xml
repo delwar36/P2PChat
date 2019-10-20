@@ -6,4 +6,6 @@
         android:icon="@drawable/connect"
         android:title="@string/connect"
         app:showAsAction="ifRoom" />
+
+
 </menu>

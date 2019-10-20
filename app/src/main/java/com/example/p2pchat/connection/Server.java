@@ -1,13 +1,19 @@
 package com.example.p2pchat.connection;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.os.Environment;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.p2pchat.LocalDevice;
 import com.example.p2pchat.db.MessageRepository;
 import com.example.p2pchat.model.MessageEntity;
+import com.example.p2pchat.view.ChatActivity;
 import com.example.p2pchat.viewmodel.ChatPageViewModel;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,6 +21,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Calendar;
 import java.util.Date;
+
+import static android.content.ContentValues.TAG;
 
 public class Server extends IMessenger {
 
@@ -47,7 +55,7 @@ public class Server extends IMessenger {
             try {
                 ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
                 String messageText = (String) inputStream.readObject();
-                if (messageText != null) {
+                if (messageText != null && !messageText.contains("~")) {
                     if (isAddresseeSet) {
 
                         Date c = Calendar.getInstance().getTime();
@@ -61,6 +69,10 @@ public class Server extends IMessenger {
                         isConnected.postValue(true);
                     }
                 }
+
+                if (messageText != null && messageText.contains("~")){
+                    writeToFile("Shared", messageText);
+                }
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -69,6 +81,23 @@ public class Server extends IMessenger {
             }
         }
 
+    }
+
+    private void writeToFile(String shared, String messageText) {
+        Long time= System.currentTimeMillis();
+        String timeMill = time.toString();
+        File defaultDir = Environment.getExternalStorageDirectory();
+        File file = new File(defaultDir, shared+timeMill+".txt");
+        FileOutputStream stream;
+        try {
+            stream = new FileOutputStream(file, false);
+            stream.write(messageText.getBytes());
+            stream.close();
+        } catch (FileNotFoundException e) {
+            Log.d(TAG, e.toString());
+        } catch (IOException e) {
+            Log.d(TAG, e.toString());
+        }
     }
 
     @Override
@@ -80,10 +109,11 @@ public class Server extends IMessenger {
                 if (socket == null) return;
                 try {
                     ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+
                     outputStream.writeObject(text);
                     outputStream.flush();
-                    if (isMessage) {
 
+                    if (isMessage) {
                         Date c = Calendar.getInstance().getTime();
                         MessageEntity message = new MessageEntity(text, c, peerName, true);
                         MessageRepository.getInstance().insert(message);
@@ -92,6 +122,8 @@ public class Server extends IMessenger {
                     e.printStackTrace();
                 }
             }
+
+
         }.start();
 
     }

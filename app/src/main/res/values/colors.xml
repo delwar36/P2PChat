@@ -9,5 +9,7 @@
     <color name="primaryTextColor">#A7A7A7</color>
     <color name="chboxBackground">#B7FFFFFF</color>
     <color name="stopBackground">#01FF3B</color>
+    <color name="bgDefaultColor">#161638</color>
+
 
 </resources>

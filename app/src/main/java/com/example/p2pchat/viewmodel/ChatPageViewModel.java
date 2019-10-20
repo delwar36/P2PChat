@@ -177,8 +177,8 @@ public class ChatPageViewModel extends AndroidViewModel {
         });
     }
 
-    public void sendMessage(String text) {
-        messenger.send(text, true);
+    public void sendMessage(String text, boolean isMessage) {
+        messenger.send(text, isMessage);
     }
 
 
